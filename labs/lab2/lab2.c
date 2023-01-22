@@ -31,7 +31,7 @@ int main()
     //for loop prints out insertion sorted input.
     insertionSort(arr4,count);
     int j;
-    printf("Insertion sorted input: \n");``
+    printf("Insertion sorted input: \n");
     for(j=0;j<count;j++)
     {
         printf("%d ",*(arr4+j));
