@@ -3,5 +3,5 @@
 int main()
 {
    // intro332532(15);
-    UABNumber(28);
+    //UABNumber(28);
 }

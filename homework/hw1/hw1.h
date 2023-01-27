@@ -31,35 +31,50 @@ void intro332532(int n)
     }
 }
     /*Checks if input is a UAB NUmber*/
-    int* UABNumber(int n2)
+    int UABNumber(int n2)
     {
         printf("Enter a number here: ");
         scanf("%d", &n2);
-        int divisors ;
-        int array[1000];
-        int temp;
-        int i,j;
-
-        divisors=j=0;
+        int divisors=0 ;
+        int inputTrue = 0;
+        int inputFalse = 0;
+        int i;
 
         /*Iterates through input number and determines which numbers are divisors or the input*/
         for(i=1;i<n2;i++)
         {
-          
-        
-          if(n2 % i==0)
-          {
-            
-
-            array[j]=i;
+          if(n2 % i==0)//input divisors added to variable divisors
+          {  
             divisors += i;
-            printf("%d ", array[j]);
-            j++;
-            
-          }
-          
+          } 
         }
-        printf("\n"); 
-        printf("%d" ,array); 
-        return 0;
+        /*Checks if number stored in divisor is equal to input number */
+        for(i=divisors;i>0;i--)
+        {
+          if(divisors==n2)//If equal returns true
+          {
+            inputTrue+=1;
+            printf("%d \n", inputTrue);
+            return 1;
+          } 
+          else{//if not equal returns false
+            printf("%d \n", inputFalse);
+            return 0;
+          }
+        }
     }
+    /*Take a number and returns the reverse. */
+    int reverseNum(int n3)
+    {
+    int size = sizeof(n3);
+    int revNums[size];
+    int i;
+    
+        /*iterates through given number and adds individuals nums to size*/
+        for(i=0;i<n3;i++)
+        {
+            revNums+= *(revNums+i);
+        } 
+        printf("%ls", revNums);
+    }
+    
