@@ -131,8 +131,9 @@ void intro332532(int n)
                 {
                     arrMean+=arr[k];
                 }
-                arrMean/=arrSize;
+                arrMean/=size;
             }
+            
             *(newArr+0)=arrSize;
             *(newArr+1)=arrMin;
             *(newArr+2)=arrMinInd;
@@ -140,12 +141,6 @@ void intro332532(int n)
             *(newArr+4)=arrMax;
             *(newArr+5)=arrMaxInd;
 
-            /*printf("%d \n", arrSize);
-            printf("%d \n", arrMin);
-            printf("%d \n", arrMinInd);
-            printf("%d \n", arrMax);
-            printf("%d \n", arrMaxInd);
-            printf("%d \n", arrMean);*/
             return newArr;
             free(newArr);
         }
