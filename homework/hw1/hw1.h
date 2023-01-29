@@ -19,15 +19,15 @@ void intro332532(int n)
         {
             printf("CS \n");
         }
-        else if(n%i==0)
+        else if(n%i==1)
         {
-            printf("Go Blazers!");
+            printf("Go Blazers! \n");
         }
         else
         {
-            printf("%f", pow(n,3));
+            printf("%f \n", powf(n,3));
         }
-        
+        break;
         printf("\n");
     }
 }
@@ -91,13 +91,12 @@ void intro332532(int n)
         }
         return smallInd;
     }
-    void arrayDetails(int* arr, int size)
+    int* arrayDetails(int* arr, int size)
     {
-        int i,j;
-        int temp;
+        int i;
         int* newArr;
         int newArrSize = 6;
-        int minValue;
+        
         newArr = malloc(6*4+8);
 
         int arrSize=size;
@@ -107,41 +106,45 @@ void intro332532(int n)
         int arrMax=0;
         int arrMaxInd=0;
 
-        //temp=arr[0];
+        int temp=arr[0];
+
             for(i=1;i<size;i++)
             {   
                 int key = arr[i];
-                temp=i-1;
                 if(key<temp)
                 {
-                    temp=key;
-                    arrMin = temp;
-                    arrMinInd = i;   
+                    temp=arr[i];
+                    arrMin = arr[i];
+                    arrMinInd = i;  
                 }
-                if(key>temp)
+                else if(key>temp)
                 {
-                    arrMax=key;
+                    arrMax=arr[i];
                     arrMaxInd=i;
+                //printf("%d \n",arrMin);
                 }
-                //printf("%d \n",temp);
             }
             for(i=0;i<size;i++)
                 {
                     arrMean+=arr[i];
                 }
                 arrMean/=size;
-            while(newArrSize>0)
-            {
+
                 newArr[0]=arrSize;
                 newArr[1]=arrMin;
                 newArr[2]=arrMinInd;
                 newArr[3]=arrMean;
                 newArr[4]=arrMax;
                 newArr[5]=arrMaxInd;
-                //printf("%d \n", *newArr);
-                newArrSize-=1;
-            }
-            printf("%d \n", *(newArr));
+                
+            
+            //printf("%d \n", arrSize);
+            //printf("%d \n", arrMin);
+            //printf("%d \n", arrMinInd);
+            //printf("%d \n", arrMax);
+            //printf("%d \n", arrMaxInd);
+            //printf("%d \n", arrMean);
+            return newArr;
             free(newArr);
         }
 
