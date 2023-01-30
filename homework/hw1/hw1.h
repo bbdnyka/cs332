@@ -114,15 +114,15 @@ int* arrayDetails(int *arr, int size)
     int arrMax;//stores maxValue of original array
     int arrMaxInd;//stores mavValue index of original array
 
-    int temp=arr[0];//constant variable for checking values of array
-    int temp2=arr[0];//constant variable for checking values of array
+    int temp=(*(arr+0));//constant variable for checking values of array
+    int temp2=(*(arr+0));//constant variable for checking values of array
 
     /*Iterates to find minValue*/
         for(i=0;i<size;i++)
         {   
-            if(arr[i]<temp)//checks fors minValue
+            if(*(arr+i)<temp)//checks fors minValue
             {
-                temp=arr[i];
+                temp=(*(arr+i));
                 arrMin=temp;//stores minValue
                 arrMinInd=i;  //stores minValue index
 
@@ -130,10 +130,9 @@ int* arrayDetails(int *arr, int size)
             //Iterates to find maxValue
             for(j=0;j<size;j++)
             {
-                arr[j];
-                if(arr[j]>temp2)//checks for minValue
+                if(*(arr+j)>temp2)//checks for minValue
                 {
-                    temp2=arr[j];
+                    temp2=(*(arr+j));
                     arrMax=temp2;//stores minValue
                     arrMaxInd=j;//stores minValue index
                 }
@@ -142,7 +141,7 @@ int* arrayDetails(int *arr, int size)
         /*Iterates to add values to arrMean variable*/
         for(k=0;k<size;k++)
         {
-            arrMean+=arr[k];
+            arrMean+=(*(arr+k));
         }
         arrMean/=size;//divides by original array size to find mean
         
