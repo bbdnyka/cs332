@@ -23,6 +23,8 @@ int main()
     int* ptr;
     ptr=arrayDetails(inp,size);
     printf("arraydetails= [");
+
+    /*Iterates to print out each array element*/
     for(i=0;i<6;i++)
     {
         printf(" %d ",*(ptr+i));
