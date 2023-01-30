@@ -3,7 +3,7 @@
 int main()
 {  
     /*intro332532*/ 
-    intro332532(30);
+    intro332532(3);
 
     /*UABNumber*/ 
     printf("UABNumber= %d \n",UABNumber(0));
