@@ -1,0 +1,5 @@
+uname -a
+/sbin/ifconfig
+./hw1 500
+./hw1 1000
+

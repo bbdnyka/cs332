@@ -10,7 +10,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-void printstat(struct stat statbuf);
+void printstat(struct stat statbuf){
+	
+}
 
 int main(int argc, char** argv) {
 	int fd;
