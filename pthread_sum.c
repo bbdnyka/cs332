@@ -19,6 +19,7 @@ double *a=NULL, sum=0.0;
 int    N, size;
 
 void *compute(void *arg) {
+  
     int myStart, myEnd, myN, i;
     long tid = (long)arg;
 

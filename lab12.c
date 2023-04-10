@@ -10,37 +10,62 @@
 
 pthread_mutex_t mutex=PTHREAD_MUTEX_INITIALIZER;
 
-typedef struct myVariables{
+typedef struct MyVariables{
 
-    double *a=NULL, sum=0.0;
+  double *a, sum; 
+  
+  int N, size; 
+  
+  long tid
 
-    int N, size;
+  }MyVariables;
 
-    long tid = (long)arg;
-}
+  MyVariables* init_MyVariables(MyVariables *myVariable){
+
+    myVariable->a = NULL;
+
+    myVariable->sum = 0.0;
+
+
+    return myVariable;
+
+  }
+
 void *compute(void *arg) {
+
+    MyVariables myVariable;
+
+    init_MyVariables(&myVariable);
+     
     int myStart, myEnd, myN, i;
 
+    myVariable.tid = (long)arg;
+
     // determine start and end of computation for the current thread
-    myN = N/size;
-    myStart = tid*myN;
+    myN = myVariable.N/myVariable.size;
+    myStart = myVariable.tid*myN;
     myEnd = myStart + myN;
-    if (tid == (size-1)) myEnd = N;
+    if (myVariable.tid == (myVariable.size-1)) myEnd = myVariable.N;
 
     // compute partial sum
     double mysum = 0.0;
     for (i=myStart; i<myEnd; i++)
-      mysum += a[i];
+      mysum += myVariable.a[i];
 
     // grab the lock, update global sum, and release lock
     pthread_mutex_lock(&mutex);
-    sum += mysum;
+    myVariable.sum += mysum;
     pthread_mutex_unlock(&mutex);
 
     return (NULL);
 }
 
 int main(int argc, char **argv) {
+
+    MyVariables myVariable;
+
+    init_MyVariables(&myVariable);
+
     long i;
     pthread_t *tid;
 
@@ -49,25 +74,25 @@ int main(int argc, char **argv) {
        exit(-1);
     }
 
-    N = atoi(argv[1]); // no. of elements
-    size = atoi(argv[2]); // no. of threads
+    myVariable.N = atoi(argv[1]); // no. of elements
+    myVariable.size = atoi(argv[2]); // no. of threads
 
     // allocate vector and initialize
-    tid = (pthread_t *)malloc(sizeof(pthread_t)*size);
-    a = (double *)malloc(sizeof(double)*N); 
-    for (i=0; i<N; i++)
-      a[i] = (double)(i + 1);
+    tid = (pthread_t *)malloc(sizeof(pthread_t)*myVariable.size);
+    myVariable.a = (double *)malloc(sizeof(double)*myVariable.N); 
+    for (i=0; i<myVariable.N; i++)
+      myVariable.a[i] = (double)(i + 1);
 
     // create threads
-    for ( i = 0; i < size; i++)
+    for ( i = 0; i < myVariable.size; i++)
       pthread_create(&tid[i], NULL, compute, (void *)i);
     
     // wait for them to complete
-    for ( i = 0; i < size; i++)
+    for ( i = 0; i < myVariable.size; i++)
       pthread_join(tid[i], NULL);
     
     printf("The total is %g, it should be equal to %g\n", 
-           sum, ((double)N*(N+1))/2);
+           myVariable.sum, ((double)myVariable.N*(myVariable.N+1))/2);
     
     return 0;
 }
