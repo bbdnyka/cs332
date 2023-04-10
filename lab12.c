@@ -1,6 +1,6 @@
 /*
     To compile: gcc -Wall -o lab12.c -lpthread 
-    To run: ./a.out
+    To run: ./a.out 1000 4
 */
 
 #include <stdio.h>
