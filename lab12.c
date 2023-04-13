@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
     for(int i = 0; i<size; i++){
 
       init_MyVariables(myVariable);
-
+      
       myVariable[i].a = a;
 
       myVariable[i].sum = sum;
