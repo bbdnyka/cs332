@@ -20,7 +20,8 @@ int    N, nthreads;
 void *compute(void *arg) {
     int myStart, myEnd, myN, i;
     long tid = (long)arg;
-
+    printf("%d ", arg);
+    printf("%ld ", tid);
     // determine start and end of computation for the current thread
     myN = N/nthreads;
     myStart = tid*myN;

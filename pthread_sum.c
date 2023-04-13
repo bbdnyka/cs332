@@ -22,11 +22,15 @@ void *compute(void *arg) {
   
     int myStart, myEnd, myN, i;
     long tid = (long)arg;
-
+    printf("%d ", arg);
     // determine start and end of computation for the current thread
     myN = N/size;
     myStart = tid*myN;
     myEnd = myStart + myN;
+    //printf("%d", N);
+    //printf("%d", myN);
+    //printf("%d", myEnd);
+    //printf("%d ", tid);
     if (tid == (size-1)) myEnd = N;
 
     // compute partial sum
@@ -63,7 +67,6 @@ int main(int argc, char **argv) {
     // create threads
     for ( i = 0; i < size; i++)
       pthread_create(&tid[i], NULL, compute, (void *)i);
-    
     // wait for them to complete
     for ( i = 0; i < size; i++)
       pthread_join(tid[i], NULL);
