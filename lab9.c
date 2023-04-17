@@ -1,6 +1,6 @@
 /* Simple program to illustrate the use of fork-exec-wait pattern. 
  * This version uses execvp and command-line arguments to create a new process.
- * To Compile: gcc -Wall forkexecvp.c
+ * To Compile: gcc -Wall lab9.c
  * To Run: ./a.out <command> [args]
  */
 #include <stdio.h>
@@ -8,8 +8,6 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
-
 
 int main(int argc, char **argv) {
     pid_t pid;

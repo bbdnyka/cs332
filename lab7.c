@@ -8,10 +8,10 @@
 
 #define LINESIZE 1024
 /*
-To compile: make 
+To compile: gcc -Wall -O lab7.c -o lab7 
 To run: ./lab7 File1.txt
 */
-int main(char argc, char **argv){
+int main(int argc, char **argv){
 	char line[LINESIZE];
 	char* str;
 	int status;
