@@ -1,7 +1,7 @@
 /* Implementation of a simple circular queue using a static array */
 #include <stdio.h>
 #include <stdlib.h>
-#include "queue.h"
+
 
 /* create the queue data structure and initialize it */
 queue *queue_init(int n) {

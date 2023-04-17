@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
     time_t t1, t2;
     int fdOUT, fdERR;
     char* buffer_out = malloc(sizeof(char)*BUFSIZ);
-     char* buffer_err = malloc(sizeof(char)*BUFSIZ);
+      char* buffer_err = malloc(sizeof(char)*BUFSIZ);
     if (argc < 2) {
         printf("Usage: %s <commands file>\n", argv[0]);
         exit(-1);

@@ -2,7 +2,7 @@
 /* Use the Makefile provided or compile using: gcc -Wall queue.c qdriver.c */
 
 #include <stdio.h>
-#include "queue.h"
+
 
 int main(int argc, char **argv) {
 	queue *q;
