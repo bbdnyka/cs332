@@ -2,6 +2,17 @@
 #ifndef __QUEUE_H__
 #define __QUEUE_H__
 
+typedef struct Job{
+
+	int running; 	/* jobs that are running */
+	int waiting;	/* jobs that are waiting */
+	int finishing;	/* jobs that are finished */
+	int startT; 	/* start time of execution */
+	int endT; 		/* end time of execution */  
+	int jobid;		/* job ids */
+
+}Job;
+
 typedef struct _queue {
 	int size;    /* maximum size of the queue */
 	int *buffer; /* queue buffer */

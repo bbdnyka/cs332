@@ -27,10 +27,7 @@ void *compute(void *arg) {
     myN = N/size;
     myStart = tid*myN;
     myEnd = myStart + myN;
-    //printf("%d", N);
-    //printf("%d", myN);
-    //printf("%d", myEnd);
-    //printf("%d ", tid);
+    
     if (tid == (size-1)) myEnd = N;
 
     // compute partial sum

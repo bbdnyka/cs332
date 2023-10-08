@@ -37,45 +37,72 @@ typedef struct MyVariables{
 
   }
 
+// void *compute(void *arg) {
+ 
+//     //MyVariables *myVariable;
+ 
+//     MyVariables *myVariable=(MyVariables *)arg;
+    
+//     //init_MyVariables(myVariable);
+    
+//     int myStart, myEnd, myN, i;
+
+//     myVariable->tid = (long)arg;
+   
+//     // determine start and end of computation for the current thread
+//     myN = myVariable->N/myVariable->size;
+//     myStart = myVariable->tid*myN;
+//     myEnd = myStart + myN;
+
+//      //printf("This is compute %d ", arg);
+//     printf("This is tid %d ", myVariable->tid);
+
+//     //if (myVariable->tid == (myVariable->size-1)) myEnd = myVariable->N;
+//     //printf("%d~~~~", myStart);
+//     //printf("%d n ", myVariable->N);
+
+//     // compute partial sum
+//     double mysum = 0.0;
+
+//     //for (i=myStart; i<myEnd; i++){
+//       printf("%f\n", myVariable->a[i]);
+//       //mysum += myVariable->a[i];
+
+//      // myVariable->sum = mysum;
+//     //}
+//     // printf("%f", mysum);
+//     // grab the lock, update global sum, and release lock
+//      //pthread_mutex_lock(&mutex);
+//      //printf("jdfaksfj");
+     
+//      //pthread_mutex_unlock(&mutex);
+
+//     return (NULL);
+// }
 void *compute(void *arg) {
- 
-    //MyVariables *myVariable;
- 
-    MyVariables *myVariable=(MyVariables *)arg;
-    
-    //init_MyVariables(myVariable);
-    
+  
     int myStart, myEnd, myN, i;
 
-    myVariable->tid = (long)arg;
-   
+    MyVariables *my = (MyVariables *) arg;
+
+    my->tid = (long)arg;
+    //printf("%d ", arg);
     // determine start and end of computation for the current thread
-    myN = myVariable->N/myVariable->size;
-    myStart = myVariable->tid*myN;
+    myN = my->N/my->size;
+    myStart = my->tid*myN;
     myEnd = myStart + myN;
-
-     //printf("This is compute %d ", arg);
-    printf("This is tid %d ", myVariable->tid);
-
-    if (myVariable->tid == (myVariable->size-1)) myEnd = myVariable->N;
-    //printf("%d~~~~", myStart);
-    //printf("%d n ", myVariable->N);
+    
+    if (my->tid == (my->size-1)) myEnd = my->N;
 
     // compute partial sum
     double mysum = 0.0;
+    for (i=myStart; i<myEnd; i++)
+      mysum += my->a[i];
 
-    for (i=myStart; i<myEnd; i++){
-      printf("%f\n", myVariable->a[i]);
-      mysum += myVariable->a[i];
-
-      myVariable->sum = mysum;
-    }
-    // printf("%f", mysum);
     // grab the lock, update global sum, and release lock
-     //pthread_mutex_lock(&mutex);
-     //printf("jdfaksfj");
-     
-     //pthread_mutex_unlock(&mutex);
+    
+    my->sum += mysum;
+    
 
     return (NULL);
 }
@@ -95,40 +122,38 @@ int main(int argc, char **argv) {
     int N = atoi(argv[1]); // no. of elements
     int size = atoi(argv[2]); // no. of threads
 
-    MyVariables *myVariable = malloc(sizeof(myVariable)*size);
+    MyVariables *my =(MyVariables *) malloc(sizeof(MyVariables)*size);
 
     // allocate vector and initialize
     tid = (pthread_t *)malloc(sizeof(pthread_t)*size);
-    double *a = (double *)malloc(sizeof(double)*N);
     
     //defining each struct for each thread
-    for(int i = 0; i<size; i++){
-
-      init_MyVariables(myVariable);
+    for(i = 0; i<size; i++){
       
-      myVariable[i].a = a;
+      my[i].a = (double *)malloc(sizeof(double)*N);
+      for (int j=0; j<N; j++)
+          my[i].a[j] = (double)(j + 1);
 
-      myVariable[i].sum = sum;
+      my[i].N = N;
 
-      myVariable[i].N = N;
+      my[i].size = size;
 
-      myVariable[i].size = size;
-
-      myVariable[i].tid = i;
+      my[i].tid = i;
+      
 
     }
 
-    for (i=0; i<N; i++)
-      a[i] = (double)(i + 1);
-
     // create threads. struct arg passed here.
     for ( i = 0; i < size; i++)
-        pthread_create(&tid[i], NULL, compute, ((void *)&myVariable[i])); 
+        pthread_create(&tid[i], NULL, compute, (void *)&my[i]); 
   
     //printf("This is the where the thread is created %d ", &myVariable[i]);
     // wait for them to complete
     for ( i = 0; i < size; i++)
         pthread_join(tid[i], NULL);
+
+    for(i = 0; i < size; i++)
+        sum += my[i].sum;
 
     printf("The total is %g, it should be equal to %g\n", 
         sum, ((double)N*(N+1))/2);
